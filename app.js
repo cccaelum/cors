@@ -11,9 +11,9 @@ app.get('/character/:characterName', async (req, res) => {
 
     try {
         const response = await axios.get(url)
-        const {name, species, image} = response.data.results[0]; // saca el primer personaje del array results
+        const {name, status, species, gender, origin: { name: originName }, image} = response.data.results[0]; // saca el primer personaje del array results
 
-        res.json({ name, species, image })
+        res.json({ name, status, species, gender, origin: { name: originName }, image })
 
     } catch (ERROR) {
         res.status(404).json({error: 'personaje no encontrado'})
