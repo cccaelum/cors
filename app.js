@@ -3,7 +3,9 @@ const axios = require('axios')
 const cors = require('cors')
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://127.0.0.1:5501' // permiso a una url en concreto, si queremos mas las metemos en un array
+}))
 
 app.get('/character/:characterName', async (req, res) => {
     const characterName = req.params.characterName
@@ -16,7 +18,7 @@ app.get('/character/:characterName', async (req, res) => {
         res.json({ name, status, species, gender, origin: { name: originName }, image })
 
     } catch (ERROR) {
-        res.status(404).json({error: 'personaje no encontrado'})
+        res.status(500).json({error: 'personaje no encontrado'}) //500 error de servidor ya que estamos accedienco a uno externo
     }
 })
 
